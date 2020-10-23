@@ -9,12 +9,21 @@ import android.view.View;
 import android.widget.ImageView;
 import android.view.MotionEvent;
 
+// Question related stuff
+import android.widget.EditText;
+import android.widget.TextView;
+import java.util.Random;
+
+// debug
+import android.util.Log;
+
 
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        generateQuestion();
         setContentView(R.layout.activity_main);
 
         ImageView appleOne = (ImageView) findViewById(R.id.appleOne);
@@ -46,6 +55,20 @@ public class MainActivity extends AppCompatActivity {
 
         ImageView appleTen = (ImageView) findViewById(R.id.appleTen);
         appleTen.setOnTouchListener(handleTouch);
+    }
+
+    public void generateQuestion() {
+        int min = 0;
+        int max = 9; // used for the random function.
+        Random r =  new Random();
+        int result = r.nextInt(max - min + 1) + min;
+        Log.d("generateQ", "RANDOM NUMBER IS " + result);
+        EditText questionBox;
+        questionBox =  (EditText)findViewById(R.id.questionBox);
+    }
+
+    public void selectedAnswer (View answerView) {
+
     }
 
     private View.OnTouchListener handleTouch = new View.OnTouchListener() {
