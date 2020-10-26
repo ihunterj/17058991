@@ -71,6 +71,9 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         Log.d("generateQ", "RANDOM NO1 IS " + r1result + " AND RANDOM NO2 IS " + r2result + " RESULT: (" +  answer + ")");
+
+        TextView questionView = (TextView)findViewById(R.id.questionBox);
+        questionView.setText("What is " + r1result + " + " + r2result + "?");
     }
 
     public void selectedAnswer (View answerView) {
