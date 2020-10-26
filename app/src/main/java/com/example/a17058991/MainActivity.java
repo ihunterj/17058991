@@ -6,8 +6,10 @@ import android.os.Bundle;
 
 // The imports below are relevant for moving the apples on the screen.
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.view.MotionEvent;
+import android.view.View.OnClickListener;
 
 // Question related stuff
 import android.widget.EditText;
@@ -18,14 +20,24 @@ import java.util.Random;
 import android.util.Log;
 
 
-public class MainActivity extends AppCompatActivity {
-
+public class MainActivity extends AppCompatActivity implements OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         generateQuestion();
+
+        findViewById(R.id.numberZero).setOnClickListener(this);
+        findViewById(R.id.numberOne).setOnClickListener(this);
+        findViewById(R.id.numberTwo).setOnClickListener(this);
+        findViewById(R.id.numberThree).setOnClickListener(this);
+        findViewById(R.id.numberFour).setOnClickListener(this);
+        findViewById(R.id.numberFive).setOnClickListener(this);
+        findViewById(R.id.numberSix).setOnClickListener(this);
+        findViewById(R.id.numberSeven).setOnClickListener(this);
+        findViewById(R.id.numberEight).setOnClickListener(this);
+        findViewById(R.id.numberNine).setOnClickListener(this);
 
         ImageView appleOne = (ImageView) findViewById(R.id.appleOne);
         appleOne.setOnTouchListener(handleTouch);
@@ -56,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
         ImageView appleTen = (ImageView) findViewById(R.id.appleTen);
         appleTen.setOnTouchListener(handleTouch);
+
     }
 
     public void generateQuestion() {
@@ -76,8 +89,12 @@ public class MainActivity extends AppCompatActivity {
         questionView.setText("What is " + r1result + " + " + r2result + "?");
     }
 
-    public void selectedAnswer (View answerView) {
-
+    public void selectedAnswer(int btn) {
+        switch(btn) {
+            case 1:
+                Log.d("SELECTEDANSWER", "ZERO CALLED");
+                break;
+        }
     }
 
     private View.OnTouchListener handleTouch = new View.OnTouchListener() {
@@ -102,4 +119,41 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
     };
+
+    @Override
+    public void onClick(View v) {
+        switch(v.getId())
+        {
+            case (R.id.numberOne):
+                Log.d("BTNCLICK", "(1)");
+                break;
+            case (R.id.numberTwo):
+                Log.d("BTNCLICK", "(2)");
+                break;
+            case (R.id.numberThree):
+                Log.d("BTNCLICK", "(3)");
+                break;
+            case (R.id.numberFour):
+                Log.d("BTNCLICK", "(4)");
+                break;
+            case (R.id.numberFive):
+                Log.d("BTNCLICK", "(5)");
+                break;
+            case (R.id.numberSix):
+                Log.d("BTNCLICK", "(6)");
+                break;
+            case (R.id.numberSeven):
+                Log.d("BTNCLICK", "(7)");
+                break;
+            case (R.id.numberEight):
+                Log.d("BTNCLICK", "(8)");
+                break;
+            case (R.id.numberNine):
+                Log.d("BTNCLICK", "(9)");
+                break;
+            case (R.id.numberZero):
+                Log.d("BTNCLICK", "(0)");
+                break;
+        }
+    }
 }
