@@ -89,14 +89,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         questionView.setText("What is " + r1result + " + " + r2result + "?");
     }
 
-    public void selectedAnswer(int btn) {
-        switch(btn) {
-            case 1:
-                Log.d("SELECTEDANSWER", "ZERO CALLED");
-                break;
-        }
-    }
-
     private View.OnTouchListener handleTouch = new View.OnTouchListener() {
         float dX, dY;
         @Override
