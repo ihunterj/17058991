@@ -23,8 +23,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        generateQuestion();
         setContentView(R.layout.activity_main);
+
+        generateQuestion();
 
         ImageView appleOne = (ImageView) findViewById(R.id.appleOne);
         appleOne.setOnTouchListener(handleTouch);
@@ -60,11 +61,16 @@ public class MainActivity extends AppCompatActivity {
     public void generateQuestion() {
         int min = 0;
         int max = 9; // used for the random function.
-        Random r =  new Random();
-        int result = r.nextInt(max - min + 1) + min;
-        Log.d("generateQ", "RANDOM NUMBER IS " + result);
-        EditText questionBox;
-        questionBox =  (EditText)findViewById(R.id.questionBox);
+        Random r1 =  new Random();
+        Random r2 =  new Random();
+        int r1result = r1.nextInt(max - min + 1) + min;
+        int r2result = r2.nextInt(max - min + 1) + min;
+        int answer = r1result + r2result;
+        if(answer > 10) {
+            generateQuestion();
+            return;
+        }
+        Log.d("generateQ", "RANDOM NO1 IS " + r1result + " AND RANDOM NO2 IS " + r2result + " RESULT: (" +  answer + ")");
     }
 
     public void selectedAnswer (View answerView) {
