@@ -70,6 +70,14 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
     }
 
+    public void correctAns() {
+        Log.d("correctAns", "This will run when the answer is correct");
+    }
+
+    public void incorrectAns() {
+        Log.d("incorrectAns", "This will run when the answer is incorrect");
+    }
+
     public void generateQuestion() {
         int min = 0;
         int max = 9; // used for the random function.
@@ -118,74 +126,74 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         {
             case (R.id.numberOne):
                 if(GlobalC.ans == 1) {
-                    Log.d("BTNCLICK", "(1) CORRECT!");
+                    correctAns();
                 } else {
-                    Log.d("BTNCLICK", "(1) INCORRECT!");
+                    incorrectAns();
                 }
                 break;
             case (R.id.numberTwo):
                 if(GlobalC.ans == 2) {
-                    Log.d("BTNCLICK", "(2) CORRECT!");
+                    correctAns();
                 } else {
-                    Log.d("BTNCLICK", "(2) INCORRECT!");
+                    incorrectAns();
                 }
                 break;
             case (R.id.numberThree):
                 if(GlobalC.ans == 3) {
-                    Log.d("BTNCLICK", "(3) CORRECT!");
+                    correctAns();
                 } else {
-                    Log.d("BTNCLICK", "(3) INCORRECT!");
+                    incorrectAns();
                 }
                 break;
             case (R.id.numberFour):
                 if(GlobalC.ans == 4) {
-                    Log.d("BTNCLICK", "(4) CORRECT!");
+                    correctAns();
                 } else {
-                    Log.d("BTNCLICK", "(4) INCORRECT!");
+                    incorrectAns();
                 }
                 break;
             case (R.id.numberFive):
                 if(GlobalC.ans == 5) {
-                    Log.d("BTNCLICK", "(5) CORRECT!");
+                    correctAns();
                 } else {
-                    Log.d("BTNCLICK", "(5) INCORRECT!");
+                    incorrectAns();
                 }
                 break;
             case (R.id.numberSix):
                 if(GlobalC.ans == 6) {
-                    Log.d("BTNCLICK", "(6) CORRECT!");
+                    correctAns();
                 } else {
-                    Log.d("BTNCLICK", "(6) INCORRECT!");
+                    incorrectAns();
                 }
                 break;
             case (R.id.numberSeven):
                 if(GlobalC.ans == 7) {
-                    Log.d("BTNCLICK", "(7) CORRECT!");
+                    correctAns();
                 } else {
-                    Log.d("BTNCLICK", "(7) INCORRECT!");
+                    incorrectAns();
                 }
                 break;
             case (R.id.numberEight):
                 if(GlobalC.ans == 8) {
-                    Log.d("BTNCLICK", "(8) CORRECT!");
+                    correctAns();
                 } else {
-                    Log.d("BTNCLICK", "(8) INCORRECT!");
+                    incorrectAns();
                 }
                 break;
             case (R.id.numberNine):
                 if(GlobalC.ans == 9) {
-                    Log.d("BTNCLICK", "(9) CORRECT!");
+                    correctAns();
                 } else {
-                    Log.d("BTNCLICK", "(9) INCORRECT!");
+                    incorrectAns();
                 }
                 break;
             default:
                 if(GlobalC.ans == 0) {
-                    Log.d("BTNCLICK", "(0) CORRECT!");
+                    correctAns();
                 } else {
-                Log.d("BTNCLICK", "(0) INCORRECT!");
-            }
+                    incorrectAns();
+                }
                 break;
+            }
         }
-    }
 }
