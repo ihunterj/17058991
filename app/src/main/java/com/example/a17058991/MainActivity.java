@@ -27,6 +27,12 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
         generateQuestion();
 
+        View correctView;
+        correctView = (View) findViewById(R.id.correctView);
+        correctView.setVisibility(View.INVISIBLE);
+
+        findViewById(R.id.correctTick).setVisibility(View.INVISIBLE);
+
         findViewById(R.id.numberZero).setOnClickListener(this);
         findViewById(R.id.numberOne).setOnClickListener(this);
         findViewById(R.id.numberTwo).setOnClickListener(this);
@@ -72,6 +78,10 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
     public void correctAns() {
         Log.d("correctAns", "This will run when the answer is correct");
+        View correctView;
+        findViewById(R.id.correctView).setVisibility(View.VISIBLE);
+        findViewById(R.id.correctTick).setVisibility(View.VISIBLE);
+        findViewById(R.id.correctTick).bringToFront();
     }
 
     public void incorrectAns() {
@@ -86,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         int r1result = r1.nextInt(max - min + 1) + min;
         int r2result = r2.nextInt(max - min + 1) + min;
         GlobalC.ans = r1result + r2result;
-        if(GlobalC.ans > 10) {
+        if(GlobalC.ans > 9) {
             generateQuestion();
             return;
         }
