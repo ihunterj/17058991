@@ -19,7 +19,6 @@ import java.util.Random;
 // debug
 import android.util.Log;
 
-
 public class MainActivity extends AppCompatActivity implements OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,12 +77,13 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         Random r2 =  new Random();
         int r1result = r1.nextInt(max - min + 1) + min;
         int r2result = r2.nextInt(max - min + 1) + min;
-        int answer = r1result + r2result;
-        if(answer > 10) {
+        GlobalC.ans = r1result + r2result;
+        if(GlobalC.ans > 10) {
             generateQuestion();
             return;
         }
-        Log.d("generateQ", "RANDOM NO1 IS " + r1result + " AND RANDOM NO2 IS " + r2result + " RESULT: (" +  answer + ")");
+
+        Log.d("generateQ", "RANDOM NO1 IS " + r1result + " AND RANDOM NO2 IS " + r2result + " RESULT: (" +  GlobalC.ans + ")");
 
         TextView questionView = (TextView)findViewById(R.id.questionBox);
         questionView.setText("What is " + r1result + " + " + r2result + "?");
@@ -117,34 +117,74 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         switch(v.getId())
         {
             case (R.id.numberOne):
-                Log.d("BTNCLICK", "(1)");
+                if(GlobalC.ans == 1) {
+                    Log.d("BTNCLICK", "(1) CORRECT!");
+                } else {
+                    Log.d("BTNCLICK", "(1) INCORRECT!");
+                }
                 break;
             case (R.id.numberTwo):
-                Log.d("BTNCLICK", "(2)");
+                if(GlobalC.ans == 2) {
+                    Log.d("BTNCLICK", "(2) CORRECT!");
+                } else {
+                    Log.d("BTNCLICK", "(2) INCORRECT!");
+                }
                 break;
             case (R.id.numberThree):
-                Log.d("BTNCLICK", "(3)");
+                if(GlobalC.ans == 3) {
+                    Log.d("BTNCLICK", "(3) CORRECT!");
+                } else {
+                    Log.d("BTNCLICK", "(3) INCORRECT!");
+                }
                 break;
             case (R.id.numberFour):
-                Log.d("BTNCLICK", "(4)");
+                if(GlobalC.ans == 4) {
+                    Log.d("BTNCLICK", "(4) CORRECT!");
+                } else {
+                    Log.d("BTNCLICK", "(4) INCORRECT!");
+                }
                 break;
             case (R.id.numberFive):
-                Log.d("BTNCLICK", "(5)");
+                if(GlobalC.ans == 5) {
+                    Log.d("BTNCLICK", "(5) CORRECT!");
+                } else {
+                    Log.d("BTNCLICK", "(5) INCORRECT!");
+                }
                 break;
             case (R.id.numberSix):
-                Log.d("BTNCLICK", "(6)");
+                if(GlobalC.ans == 6) {
+                    Log.d("BTNCLICK", "(6) CORRECT!");
+                } else {
+                    Log.d("BTNCLICK", "(6) INCORRECT!");
+                }
                 break;
             case (R.id.numberSeven):
-                Log.d("BTNCLICK", "(7)");
+                if(GlobalC.ans == 7) {
+                    Log.d("BTNCLICK", "(7) CORRECT!");
+                } else {
+                    Log.d("BTNCLICK", "(7) INCORRECT!");
+                }
                 break;
             case (R.id.numberEight):
-                Log.d("BTNCLICK", "(8)");
+                if(GlobalC.ans == 8) {
+                    Log.d("BTNCLICK", "(8) CORRECT!");
+                } else {
+                    Log.d("BTNCLICK", "(8) INCORRECT!");
+                }
                 break;
             case (R.id.numberNine):
-                Log.d("BTNCLICK", "(9)");
+                if(GlobalC.ans == 9) {
+                    Log.d("BTNCLICK", "(9) CORRECT!");
+                } else {
+                    Log.d("BTNCLICK", "(9) INCORRECT!");
+                }
                 break;
-            case (R.id.numberZero):
-                Log.d("BTNCLICK", "(0)");
+            default:
+                if(GlobalC.ans == 0) {
+                    Log.d("BTNCLICK", "(0) CORRECT!");
+                } else {
+                Log.d("BTNCLICK", "(0) INCORRECT!");
+            }
                 break;
         }
     }
