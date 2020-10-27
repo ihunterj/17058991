@@ -2,6 +2,7 @@ package com.example.a17058991;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 // The imports below are relevant for moving the apples on the screen.
@@ -16,10 +17,26 @@ import android.widget.EditText;
 import android.widget.TextView;
 import java.util.Random;
 
+// animation libraries
+import android.view.animation.AlphaAnimation;
+import android.view.animation.RotateAnimation;
+import android.view.animation.ScaleAnimation;
+import android.view.animation.TranslateAnimation;
+import android.view.animation.Animation;
+
 // debug
 import android.util.Log;
 
 public class MainActivity extends AppCompatActivity implements OnClickListener {
+
+    ImageView starOne;
+    ImageView starTwo;
+
+    ScaleAnimation scale;
+    TranslateAnimation trans;
+    RotateAnimation rotate;
+    AlphaAnimation alpha;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +48,19 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         correctView = (View) findViewById(R.id.correctView);
         correctView.setVisibility(View.INVISIBLE);
 
+        ImageView starOne;
+        starOne = (ImageView) findViewById(R.id.starOne);
+        starOne.setVisibility(View.INVISIBLE);
+
+        ImageView starTwo;
+        starTwo = (ImageView) findViewById(R.id.starTwo);
+        starTwo.setVisibility(View.INVISIBLE);
+
+        findViewById(R.id.starTwo).setVisibility(View.INVISIBLE);
+
         findViewById(R.id.correctTick).setVisibility(View.INVISIBLE);
+
+        findViewById(R.id.correctTick).setOnClickListener(this);
 
         findViewById(R.id.numberZero).setOnClickListener(this);
         findViewById(R.id.numberOne).setOnClickListener(this);
@@ -81,7 +110,28 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         View correctView;
         findViewById(R.id.correctView).setVisibility(View.VISIBLE);
         findViewById(R.id.correctTick).setVisibility(View.VISIBLE);
+        findViewById(R.id.starOne).setVisibility(View.VISIBLE);
+        findViewById(R.id.starTwo).setVisibility(View.VISIBLE);
+        findViewById(R.id.starOne).bringToFront();
+        findViewById(R.id.starTwo).bringToFront();
         findViewById(R.id.correctTick).bringToFront();
+
+        starOne = (ImageView) findViewById(R.id.starOne);
+        scale = new ScaleAnimation(0, 2, 0, 2);
+        scale.setDuration(10000);
+        scale.setRepeatCount(Animation.INFINITE);
+        starOne.startAnimation(scale);
+
+        starTwo = (ImageView) findViewById(R.id.starTwo);
+        rotate = new RotateAnimation(0, 300);
+        rotate.setDuration(10000);
+        scale.setRepeatCount(Animation.INFINITE);
+        starTwo.startAnimation(rotate);
+
+        TextView questionView = (TextView)findViewById(R.id.questionBox);
+        questionView.setText(GlobalC.rand1 + " + " + GlobalC.rand2 + " = " + GlobalC.ans);
+        questionView.setTextColor(Color.parseColor("#00FF00"));
+        findViewById(R.id.questionBox).bringToFront();
     }
 
     public void incorrectAns() {
@@ -93,18 +143,31 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         int max = 9; // used for the random function.
         Random r1 =  new Random();
         Random r2 =  new Random();
-        int r1result = r1.nextInt(max - min + 1) + min;
-        int r2result = r2.nextInt(max - min + 1) + min;
-        GlobalC.ans = r1result + r2result;
+        GlobalC.rand1 = r1.nextInt(max - min + 1) + min;
+        GlobalC.rand2 = r2.nextInt(max - min + 1) + min;
+        GlobalC.ans = GlobalC.rand1 + GlobalC.rand2;
         if(GlobalC.ans > 9) {
             generateQuestion();
             return;
         }
 
-        Log.d("generateQ", "RANDOM NO1 IS " + r1result + " AND RANDOM NO2 IS " + r2result + " RESULT: (" +  GlobalC.ans + ")");
+        Log.d("generateQ", "RANDOM NO1 IS " + GlobalC.rand1 + " AND RANDOM NO2 IS " + GlobalC.rand2 + " RESULT: (" +  GlobalC.ans + ")");
 
         TextView questionView = (TextView)findViewById(R.id.questionBox);
-        questionView.setText("What is " + r1result + " + " + r2result + "?");
+        questionView.setText("What is " + GlobalC.rand1 + " + " + GlobalC.rand2 + "?");
+    }
+
+    public void resetView() {
+        starOne.clearAnimation();
+        starTwo.clearAnimation();
+        View correctView;
+        findViewById(R.id.correctView).setVisibility(View.INVISIBLE);
+        findViewById(R.id.correctTick).setVisibility(View.INVISIBLE);
+        findViewById(R.id.starOne).setVisibility(View.INVISIBLE);
+        findViewById(R.id.starTwo).setVisibility(View.INVISIBLE);
+        TextView questionView = (TextView)findViewById(R.id.questionBox);
+        questionView.setTextColor(Color.parseColor("#7d7d7d"));
+        generateQuestion();
     }
 
     private View.OnTouchListener handleTouch = new View.OnTouchListener() {
@@ -134,6 +197,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     public void onClick(View v) {
         switch(v.getId())
         {
+            case(R.id.correctTick):
+                resetView();
+                break;
             case (R.id.numberOne):
                 if(GlobalC.ans == 1) {
                     correctAns();
