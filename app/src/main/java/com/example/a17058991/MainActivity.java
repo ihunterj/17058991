@@ -7,13 +7,11 @@ import android.os.Bundle;
 
 // The imports below are relevant for moving the apples on the screen.
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.view.MotionEvent;
 import android.view.View.OnClickListener;
 
 // Question related stuff
-import android.widget.EditText;
 import android.widget.TextView;
 import java.util.Random;
 
@@ -45,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         generateQuestion();
 
         View correctView;
-        correctView = (View) findViewById(R.id.correctView);
+        correctView = (View) findViewById(R.id.ansView);
         correctView.setVisibility(View.INVISIBLE);
 
         ImageView starOne;
@@ -58,9 +56,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
         findViewById(R.id.starTwo).setVisibility(View.INVISIBLE);
 
-        findViewById(R.id.correctTick).setVisibility(View.INVISIBLE);
+        findViewById(R.id.replay).setVisibility(View.INVISIBLE);
 
-        findViewById(R.id.correctTick).setOnClickListener(this);
+        findViewById(R.id.replay).setOnClickListener(this);
 
         findViewById(R.id.numberZero).setOnClickListener(this);
         findViewById(R.id.numberOne).setOnClickListener(this);
@@ -107,14 +105,14 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
     public void correctAns() {
         Log.d("correctAns", "This will run when the answer is correct");
-        View correctView;
-        findViewById(R.id.correctView).setVisibility(View.VISIBLE);
-        findViewById(R.id.correctTick).setVisibility(View.VISIBLE);
+        View ansView;
+        findViewById(R.id.ansView).setVisibility(View.VISIBLE);
+        findViewById(R.id.replay).setVisibility(View.VISIBLE);
         findViewById(R.id.starOne).setVisibility(View.VISIBLE);
         findViewById(R.id.starTwo).setVisibility(View.VISIBLE);
         findViewById(R.id.starOne).bringToFront();
         findViewById(R.id.starTwo).bringToFront();
-        findViewById(R.id.correctTick).bringToFront();
+        findViewById(R.id.replay).bringToFront();
 
         starOne = (ImageView) findViewById(R.id.starOne);
         scale = new ScaleAnimation(0, 2, 0, 2);
@@ -136,6 +134,14 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
     public void incorrectAns() {
         Log.d("incorrectAns", "This will run when the answer is incorrect");
+        View ansView;
+        findViewById(R.id.ansView).setVisibility(View.VISIBLE);
+        findViewById(R.id.replay).setVisibility(View.VISIBLE);
+        findViewById(R.id.replay).bringToFront();
+        TextView questionView = (TextView)findViewById(R.id.questionBox);
+        questionView.setText(GlobalC.rand1 + " + " + GlobalC.rand2 + " = " + GlobalC.ans);
+        questionView.setTextColor(Color.parseColor("#FF0000"));
+        findViewById(R.id.questionBox).bringToFront();
     }
 
     public void generateQuestion() {
@@ -160,9 +166,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     public void resetView() {
         starOne.clearAnimation();
         starTwo.clearAnimation();
-        View correctView;
-        findViewById(R.id.correctView).setVisibility(View.INVISIBLE);
-        findViewById(R.id.correctTick).setVisibility(View.INVISIBLE);
+        View ansView;
+        findViewById(R.id.ansView).setVisibility(View.INVISIBLE);
+        findViewById(R.id.replay).setVisibility(View.INVISIBLE);
         findViewById(R.id.starOne).setVisibility(View.INVISIBLE);
         findViewById(R.id.starTwo).setVisibility(View.INVISIBLE);
         TextView questionView = (TextView)findViewById(R.id.questionBox);
@@ -197,7 +203,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     public void onClick(View v) {
         switch(v.getId())
         {
-            case(R.id.correctTick):
+            case(R.id.replay):
                 resetView();
                 break;
             case (R.id.numberOne):

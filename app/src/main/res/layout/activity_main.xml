@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <ImageView
-        android:id="@+id/correctTick"
+        android:id="@+id/replay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="108dp"
@@ -285,10 +285,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
-        android:id="@+id/correctView"
+        android:id="@+id/ansView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#FF5722"
+        android:background="#FF940F"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
