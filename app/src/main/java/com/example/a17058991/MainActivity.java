@@ -134,6 +134,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
         MediaPlayer mPlayer = MediaPlayer.create(this, R.raw.correct);
         mPlayer.start();
+
+        GlobalC.res = 1;
     }
 
     public void incorrectAns() {
@@ -171,16 +173,20 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     }
 
     public void resetView() {
-        starOne.clearAnimation();
-        starTwo.clearAnimation();
         View ansView;
         findViewById(R.id.ansView).setVisibility(View.INVISIBLE);
         findViewById(R.id.replay).setVisibility(View.INVISIBLE);
         findViewById(R.id.starOne).setVisibility(View.INVISIBLE);
         findViewById(R.id.starTwo).setVisibility(View.INVISIBLE);
+        if(GlobalC.res == 1) {
+            starOne.clearAnimation();
+            starTwo.clearAnimation();
+        }
+        GlobalC.res = 0;
         TextView questionView = (TextView)findViewById(R.id.questionBox);
         questionView.setTextColor(Color.parseColor("#7d7d7d"));
         generateQuestion();
+
     }
 
     private View.OnTouchListener handleTouch = new View.OnTouchListener() {
