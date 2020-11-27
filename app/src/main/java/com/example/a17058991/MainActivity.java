@@ -3,6 +3,7 @@ package com.example.a17058991;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
+import android.media.MediaPlayer; // used for music
 import android.os.Bundle;
 
 // The imports below are relevant for moving the apples on the screen.
@@ -130,6 +131,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         questionView.setText(GlobalC.rand1 + " + " + GlobalC.rand2 + " = " + GlobalC.ans);
         questionView.setTextColor(Color.parseColor("#00FF00"));
         findViewById(R.id.questionBox).bringToFront();
+
+        MediaPlayer mPlayer = MediaPlayer.create(this, R.raw.correct);
+        mPlayer.start();
     }
 
     public void incorrectAns() {
@@ -142,6 +146,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         questionView.setText(GlobalC.rand1 + " + " + GlobalC.rand2 + " = " + GlobalC.ans);
         questionView.setTextColor(Color.parseColor("#FF0000"));
         findViewById(R.id.questionBox).bringToFront();
+
+        MediaPlayer mPlayer = MediaPlayer.create(this, R.raw.incorrect);
+        mPlayer.start();
     }
 
     public void generateQuestion() {
