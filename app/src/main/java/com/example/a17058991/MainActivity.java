@@ -132,6 +132,10 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         questionView.setTextColor(Color.parseColor("#00FF00"));
         findViewById(R.id.questionBox).bringToFront();
 
+        // code for score
+        GlobalC.score++; // +1 to score
+        GlobalC.questionProg++; // +1 to prog
+
         MediaPlayer mPlayer = MediaPlayer.create(this, R.raw.correct);
         mPlayer.start();
 
@@ -149,12 +153,15 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         questionView.setTextColor(Color.parseColor("#FF0000")); //  Sets the colour to red so the user can see it is wrong
         findViewById(R.id.questionBox).bringToFront(); // Ensures the question box is visible to the user by bringing it in front of other layers.
 
+        // code for score
+        GlobalC.questionProg++; //+1 to prog
+
         MediaPlayer mPlayer = MediaPlayer.create(this, R.raw.incorrect); // Defines the mediaplayer so we can reference the 'incorrect.mp3' file
         mPlayer.start(); // plays the music file reference in the line above
     }
 
     public void generateQuestion() {
-        int min = 0; // used for the random function.
+        int min = 1; // used for the random function.
         int max = 9; // used for the random function.
         Random r1 =  new Random();
         Random r2 =  new Random();
@@ -185,6 +192,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         GlobalC.res = 0; // Sets the value of GlobalC.res to 0.
         TextView questionView = (TextView)findViewById(R.id.questionBox);
         questionView.setTextColor(Color.parseColor("#7d7d7d")); // This sets the text colour to its default colour using hex value.
+        TextView scoreBox = (TextView)findViewById(R.id.scoreBox);  // defines the scoreBox
+        scoreBox.setText("Score: " + GlobalC.score); // updates the score on screen
         generateQuestion(); // Runs the generateQuestion(); function
     }
 
