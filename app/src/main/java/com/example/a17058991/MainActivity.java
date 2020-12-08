@@ -55,9 +55,11 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         starTwo = (ImageView) findViewById(R.id.starTwo);
         starTwo.setVisibility(View.INVISIBLE);
 
-        findViewById(R.id.starTwo).setVisibility(View.INVISIBLE);
+        findViewById(R.id.starTwo).setVisibility(View.INVISIBLE); // hides star two
 
-        findViewById(R.id.replay).setVisibility(View.INVISIBLE);
+        findViewById(R.id.replay).setVisibility(View.INVISIBLE); // hides replay button
+
+        findViewById(R.id.gameOver).setVisibility(View.INVISIBLE); // hides the game over box
 
         findViewById(R.id.replay).setOnClickListener(this);
 
@@ -106,58 +108,98 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
     public void correctAns() {
         Log.d("correctAns", "This will run when the answer is correct");
-        View ansView;
-        findViewById(R.id.ansView).setVisibility(View.VISIBLE);
-        findViewById(R.id.replay).setVisibility(View.VISIBLE);
-        findViewById(R.id.starOne).setVisibility(View.VISIBLE);
-        findViewById(R.id.starTwo).setVisibility(View.VISIBLE);
-        findViewById(R.id.starOne).bringToFront();
-        findViewById(R.id.starTwo).bringToFront();
-        findViewById(R.id.replay).bringToFront();
-
-        starOne = (ImageView) findViewById(R.id.starOne);
-        scale = new ScaleAnimation(0, 2, 0, 2);
-        scale.setDuration(10000);
-        scale.setRepeatCount(Animation.INFINITE);
-        starOne.startAnimation(scale);
-
-        starTwo = (ImageView) findViewById(R.id.starTwo);
-        rotate = new RotateAnimation(0, 300);
-        rotate.setDuration(10000);
-        scale.setRepeatCount(Animation.INFINITE);
-        starTwo.startAnimation(rotate);
-
-        TextView questionView = (TextView)findViewById(R.id.questionBox);
-        questionView.setText(GlobalC.rand1 + " + " + GlobalC.rand2 + " = " + GlobalC.ans);
-        questionView.setTextColor(Color.parseColor("#00FF00"));
-        findViewById(R.id.questionBox).bringToFront();
-
         // code for score
         GlobalC.score++; // +1 to score
         GlobalC.questionProg++; // +1 to prog
 
-        MediaPlayer mPlayer = MediaPlayer.create(this, R.raw.correct);
-        mPlayer.start();
+        if(GlobalC.questionProg < 10) { // If the questionProg variable is less than 10..
+            View ansView;
+            findViewById(R.id.ansView).setVisibility(View.VISIBLE);
+            findViewById(R.id.replay).setVisibility(View.VISIBLE);
+            findViewById(R.id.starOne).setVisibility(View.VISIBLE);
+            findViewById(R.id.starTwo).setVisibility(View.VISIBLE);
+            findViewById(R.id.starOne).bringToFront();
+            findViewById(R.id.starTwo).bringToFront();
+            findViewById(R.id.replay).bringToFront();
 
-        GlobalC.res = 1;
+            starOne = (ImageView) findViewById(R.id.starOne);
+            scale = new ScaleAnimation(0, 2, 0, 2);
+            scale.setDuration(10000);
+            scale.setRepeatCount(Animation.INFINITE);
+            starOne.startAnimation(scale);
+
+            starTwo = (ImageView) findViewById(R.id.starTwo);
+            rotate = new RotateAnimation(0, 300);
+            rotate.setDuration(10000);
+            scale.setRepeatCount(Animation.INFINITE);
+            starTwo.startAnimation(rotate);
+
+            TextView questionView = (TextView) findViewById(R.id.questionBox);
+            questionView.setText(GlobalC.rand1 + " + " + GlobalC.rand2 + " = " + GlobalC.ans);
+            questionView.setTextColor(Color.parseColor("#00FF00"));
+            findViewById(R.id.questionBox).bringToFront();
+
+            GlobalC.res = 1;
+
+            MediaPlayer mPlayer = MediaPlayer.create(this, R.raw.correct);
+            mPlayer.start();
+        }
+        else { // If questionProg is equal to or greater than 10 (the else to the if statement)
+            View ansView;
+            findViewById(R.id.ansView).setVisibility(View.VISIBLE); // sets the view to visible
+            findViewById(R.id.replay).bringToFront(); // brings the replay button to the front so it is visible
+
+            TextView questionView = (TextView) findViewById(R.id.questionBox); // finds the questionBox
+            questionView.setText(GlobalC.rand1 + " + " + GlobalC.rand2 + " = " + GlobalC.ans); // changes the text accordingly to represent the question/answer
+            questionView.setTextColor(Color.parseColor("#00FF00")); // sets colour of text
+            findViewById(R.id.questionBox).bringToFront(); // brings questionbox to the front so it is visible
+
+            findViewById(R.id.replay).setVisibility(View.VISIBLE);
+            findViewById(R.id.replay).bringToFront();
+
+            gameOver();
+
+        }
     }
 
     public void incorrectAns() {
         Log.d("incorrectAns", "This will run when the answer is incorrect"); // debug, ensuring that the function is called appropriately (prior to the rest of the function being made)
-        View ansView; // defines a View
-        findViewById(R.id.ansView).setVisibility(View.VISIBLE); // sets the answer view to visible
-        findViewById(R.id.replay).setVisibility(View.VISIBLE); // sets replay button to visible
-        findViewById(R.id.replay).bringToFront(); // brings the button to the front so it can be seen by the user
-        TextView questionView = (TextView)findViewById(R.id.questionBox);  // defines the questionView
-        questionView.setText(GlobalC.rand1 + " + " + GlobalC.rand2 + " = " + GlobalC.ans); // This changes the questionView text to reflect on the generated question and the correct answer, so the user can see the correct answer in any instance.
-        questionView.setTextColor(Color.parseColor("#FF0000")); //  Sets the colour to red so the user can see it is wrong
-        findViewById(R.id.questionBox).bringToFront(); // Ensures the question box is visible to the user by bringing it in front of other layers.
-
-        // code for score
         GlobalC.questionProg++; //+1 to prog
 
-        MediaPlayer mPlayer = MediaPlayer.create(this, R.raw.incorrect); // Defines the mediaplayer so we can reference the 'incorrect.mp3' file
-        mPlayer.start(); // plays the music file reference in the line above
+        if(GlobalC.questionProg < 10) { // If the questionProg variable is less than 10..
+            View ansView; // defines a View
+            findViewById(R.id.ansView).setVisibility(View.VISIBLE); // sets the answer view to visible
+            findViewById(R.id.replay).setVisibility(View.VISIBLE); // sets replay button to visible
+            findViewById(R.id.replay).bringToFront(); // brings the button to the front so it can be seen by the user
+            TextView questionView = (TextView) findViewById(R.id.questionBox);  // defines the questionView
+            questionView.setText(GlobalC.rand1 + " + " + GlobalC.rand2 + " = " + GlobalC.ans); // This changes the questionView text to reflect on the generated question and the correct answer, so the user can see the correct answer in any instance.
+            questionView.setTextColor(Color.parseColor("#FF0000")); //  Sets the colour to red so the user can see it is wrong
+            findViewById(R.id.questionBox).bringToFront(); // Ensures the question box is visible to the user by bringing it in front of other layers.
+            MediaPlayer mPlayer = MediaPlayer.create(this, R.raw.incorrect); // Defines the mediaplayer so we can reference the 'incorrect.mp3' file
+            mPlayer.start(); // plays the music file reference in the line above
+        }
+        else {
+            findViewById(R.id.ansView).setVisibility(View.VISIBLE); // sets the answer view to visible
+            findViewById(R.id.replay).setVisibility(View.VISIBLE); // sets replay button to visible
+            findViewById(R.id.replay).bringToFront(); // brings the button to the front so it can be seen by the user
+            TextView questionView = (TextView) findViewById(R.id.questionBox);  // defines the questionView
+            questionView.setText(GlobalC.rand1 + " + " + GlobalC.rand2 + " = " + GlobalC.ans); // This changes the questionView text to reflect on the generated question and the correct answer, so the user can see the correct answer in any instance.
+            questionView.setTextColor(Color.parseColor("#FF0000")); //  Sets the colour to red so the user can see it is wrong
+            findViewById(R.id.questionBox).bringToFront(); // Ensures the question box is visible to the user by bringing it in front of other layers.
+            gameOver();
+        }
+    }
+
+    public void gameOver() {
+        TextView gameOver = (TextView) findViewById(R.id.gameOver); // finds the game over box
+        gameOver.setText("Game Over! Score: " + GlobalC.score + "/10");
+        findViewById(R.id.gameOver).setVisibility(View.VISIBLE);
+
+        GlobalC.score = 0;
+        GlobalC.questionProg = 0;
+
+        MediaPlayer mPlayer = MediaPlayer.create(this, R.raw.applause);
+        mPlayer.start();
     }
 
     public void generateQuestion() {
@@ -185,14 +227,15 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         findViewById(R.id.replay).setVisibility(View.INVISIBLE);  // Makes the replay button invisible
         findViewById(R.id.starOne).setVisibility(View.INVISIBLE); // Makes the starOne invisible
         findViewById(R.id.starTwo).setVisibility(View.INVISIBLE); // Makes the starTwo invisible
-        if(GlobalC.res == 1) { // If the variable GlobalC.res is equal to 1 then..
+        findViewById(R.id.gameOver).setVisibility(View.INVISIBLE); // hides the game over text
+        if (GlobalC.res == 1) { // If the variable GlobalC.res is equal to 1 then..
             starOne.clearAnimation(); // Clears the running animation on StarOne
             starTwo.clearAnimation(); // Clears the running animation on StarTwo
         }
         GlobalC.res = 0; // Sets the value of GlobalC.res to 0.
-        TextView questionView = (TextView)findViewById(R.id.questionBox);
+        TextView questionView = (TextView) findViewById(R.id.questionBox);
         questionView.setTextColor(Color.parseColor("#7d7d7d")); // This sets the text colour to its default colour using hex value.
-        TextView scoreBox = (TextView)findViewById(R.id.scoreBox);  // defines the scoreBox
+        TextView scoreBox = (TextView) findViewById(R.id.scoreBox);  // defines the scoreBox
         scoreBox.setText("Score: " + GlobalC.score); // updates the score on screen
         generateQuestion(); // Runs the generateQuestion(); function
     }
