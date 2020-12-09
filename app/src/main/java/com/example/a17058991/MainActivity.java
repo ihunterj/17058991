@@ -203,6 +203,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         gameOver.setText("Game Over! Score: " + GlobalC.score + "/10"); // adjusts the text accordingly
         findViewById(R.id.gameOver).setVisibility(View.VISIBLE); // making it visible as it would by default be hidden so the user can see it
 
+        if(GlobalC.score >= 8) { GlobalC.difficulty = 1; } // if their score is 8 or more then set difficulty to 1, which will be used to make questions "harder"
+        else { GlobalC.difficulty = 0; } // if they score less than 8 the difficulty will be reset to 0, which is the lowest level
+
         GlobalC.score = 0; // resets variable value to 0
         GlobalC.questionProg = 0; // resets variable value to 0
 
@@ -211,8 +214,18 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     }
 
     public void generateQuestion() {
-        int min = 0; // used for the random function.
-        int max = 4; // used for the random function.
+        int min; // declares the integer min
+        int max; // declares the integer max
+
+        if(GlobalC.difficulty == 0) { // the default difficulty setting means the maximum number will be 4, i.e the hardest possible question is 4+4
+            min = 0; // used for the random function.
+            max = 4; // used for the random function.
+        }
+        else { // if the difficulty is equal to 1 which at this point is the hardest level setting, the max could be 9 so technically the highest question possible is 9+0, but it could be for instance 5+4, 6+3, 7+2, 8+1.
+            min = 0;
+            max = 9;
+        }
+
         GlobalC.rand1 = new Random().nextInt(max - min + 1) + min; // rand1 is provided with a random value between the max and min numbers defined above
         GlobalC.rand2 = new Random().nextInt(max - min + 1) + min; // rand2 is provided with a random value between the max and min numbers defined above
         GlobalC.ans = GlobalC.rand1 + GlobalC.rand2; // the answer is stored in GlobalC.ans based off the result of GlobalC.rand1 + GlobalC.rand2
