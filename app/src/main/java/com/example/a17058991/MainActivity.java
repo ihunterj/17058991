@@ -203,14 +203,15 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         gameOver.setText("Game Over! Score: " + GlobalC.score + "/10"); // adjusts the text accordingly
         findViewById(R.id.gameOver).setVisibility(View.VISIBLE); // making it visible as it would by default be hidden so the user can see it
 
-        if(GlobalC.score >= 8) { GlobalC.difficulty = 1; } // if their score is 8 or more then set difficulty to 1, which will be used to make questions "harder"
+        if(GlobalC.score >= 8) {
+            GlobalC.difficulty = 1; // plays applause.mp3 } // if their score is 8 or more then set difficulty to 1, which will be used to make questions "harder"
+            MediaPlayer mPlayer = MediaPlayer.create(this, R.raw.applause); // Defines the mediaplayer so we can reference the 'applause.mp3' file
+            mPlayer.start(); // plays applause.mp3
+        }
         else { GlobalC.difficulty = 0; } // if they score less than 8 the difficulty will be reset to 0, which is the lowest level
 
         GlobalC.score = 0; // resets variable value to 0
         GlobalC.questionProg = 0; // resets variable value to 0
-
-        MediaPlayer mPlayer = MediaPlayer.create(this, R.raw.applause); // Defines the mediaplayer so we can reference the 'applause.mp3' file
-        mPlayer.start(); // plays applause.mp3
     }
 
     public void generateQuestion() {
