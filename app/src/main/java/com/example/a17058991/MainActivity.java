@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
         findViewById(R.id.gameOver).setVisibility(View.INVISIBLE); // hides the game over box
 
+        // when the app is launched it will listen for clicks on the buttons, necessary to make them responsive
         findViewById(R.id.replay).setOnClickListener(this);
 
         findViewById(R.id.numberZero).setOnClickListener(this);
@@ -74,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         findViewById(R.id.numberEight).setOnClickListener(this);
         findViewById(R.id.numberNine).setOnClickListener(this);
 
+        // these defines are made so that the app listens for touch on the apples, therefore they can be moved with additional code below.
         ImageView appleOne = (ImageView) findViewById(R.id.appleOne);
         appleOne.setOnTouchListener(handleTouch);
 
@@ -107,21 +109,25 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     }
 
     public void correctAns() {
-        Log.d("correctAns", "This will run when the answer is correct");
+        Log.d("correctAns", "This will run when the answer is correct"); //debug
+
         // code for score
         GlobalC.score++; // +1 to score
         GlobalC.questionProg++; // +1 to prog
 
         if(GlobalC.questionProg < 10) { // If the questionProg variable is less than 10..
+            //view visibilities are adjusted to show/hide the appropriate buttons/views for the correct answer display
             View ansView;
             findViewById(R.id.ansView).setVisibility(View.VISIBLE);
             findViewById(R.id.replay).setVisibility(View.VISIBLE);
             findViewById(R.id.starOne).setVisibility(View.VISIBLE);
             findViewById(R.id.starTwo).setVisibility(View.VISIBLE);
+            //bringToFront literally brings the selected view to the top of the layers, I mainly added this to ensure visibility above the other view layers within the application
             findViewById(R.id.starOne).bringToFront();
             findViewById(R.id.starTwo).bringToFront();
             findViewById(R.id.replay).bringToFront();
 
+            // code for creating and animating the stars
             starOne = (ImageView) findViewById(R.id.starOne);
             scale = new ScaleAnimation(0, 2, 0, 2);
             scale.setDuration(10000);
@@ -134,15 +140,16 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             scale.setRepeatCount(Animation.INFINITE);
             starTwo.startAnimation(rotate);
 
+            //adjusts the question text to reflect upon the correct answer
             TextView questionView = (TextView) findViewById(R.id.questionBox);
             questionView.setText(GlobalC.rand1 + " + " + GlobalC.rand2 + " = " + GlobalC.ans);
             questionView.setTextColor(Color.parseColor("#00FF00"));
             findViewById(R.id.questionBox).bringToFront();
 
-            GlobalC.res = 1;
+            GlobalC.res = 1; // this variable is set to 1, was implemented as part of a crash fix
 
-            MediaPlayer mPlayer = MediaPlayer.create(this, R.raw.correct);
-            mPlayer.start();
+            MediaPlayer mPlayer = MediaPlayer.create(this, R.raw.correct); // references the file "correct.mp3" used within the application
+            mPlayer.start(); // starts playing correct.mp3
         }
         else { // If questionProg is equal to or greater than 10 (the else to the if statement)
             View ansView;
@@ -157,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             findViewById(R.id.replay).setVisibility(View.VISIBLE);
             findViewById(R.id.replay).bringToFront();
 
-            gameOver();
+            gameOver(); // as the questionProg requirement has been met we initiate the gameOver(); function.
 
         }
     }
@@ -186,29 +193,27 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             questionView.setText(GlobalC.rand1 + " + " + GlobalC.rand2 + " = " + GlobalC.ans); // This changes the questionView text to reflect on the generated question and the correct answer, so the user can see the correct answer in any instance.
             questionView.setTextColor(Color.parseColor("#FF0000")); //  Sets the colour to red so the user can see it is wrong
             findViewById(R.id.questionBox).bringToFront(); // Ensures the question box is visible to the user by bringing it in front of other layers.
-            gameOver();
+            gameOver(); // as the questionProg requirement has been met we initiate the gameOver(); function.
         }
     }
 
     public void gameOver() {
         TextView gameOver = (TextView) findViewById(R.id.gameOver); // finds the game over box
-        gameOver.setText("Game Over! Score: " + GlobalC.score + "/10");
-        findViewById(R.id.gameOver).setVisibility(View.VISIBLE);
+        gameOver.setText("Game Over! Score: " + GlobalC.score + "/10"); // adjusts the text accordingly
+        findViewById(R.id.gameOver).setVisibility(View.VISIBLE); // making it visible as it would by default be hidden so the user can see it
 
-        GlobalC.score = 0;
-        GlobalC.questionProg = 0;
+        GlobalC.score = 0; // resets variable value to 0
+        GlobalC.questionProg = 0; // resets variable value to 0
 
-        MediaPlayer mPlayer = MediaPlayer.create(this, R.raw.applause);
-        mPlayer.start();
+        MediaPlayer mPlayer = MediaPlayer.create(this, R.raw.applause); // Defines the mediaplayer so we can reference the 'applause.mp3' file
+        mPlayer.start(); // plays applause.mp3
     }
 
     public void generateQuestion() {
         int min = 1; // used for the random function.
         int max = 9; // used for the random function.
-        Random r1 =  new Random();
-        Random r2 =  new Random();
-        GlobalC.rand1 = r1.nextInt(max - min + 1) + min; // r1 is provided with a random value between the max and min numbers defined above
-        GlobalC.rand2 = r2.nextInt(max - min + 1) + min; // r2 is provided with a random value between the max and min numbers defined above
+        GlobalC.rand1 = new Random().nextInt(max - min + 1) + min; // rand1 is provided with a random value between the max and min numbers defined above
+        GlobalC.rand2 = new Random().nextInt(max - min + 1) + min; // rand2 is provided with a random value between the max and min numbers defined above
         GlobalC.ans = GlobalC.rand1 + GlobalC.rand2; // the answer is stored in GlobalC.ans based off the result of GlobalC.rand1 + GlobalC.rand2
         if(GlobalC.ans > 9) { // If the answer is greater than 9..
             generateQuestion(); // Re-run the function, essentially looping until the point the answer works out to be equal to or less than 9.
