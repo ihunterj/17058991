@@ -9,4 +9,7 @@ public class GlobalC {
     // variables for SCORE, will also be used to reset the game after 5 questions
     public static int score = 0;
     public static int questionProg = 0;
+
+    // difficulty increase
+    public static int difficulty = 0;
 }
