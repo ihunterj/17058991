@@ -189,6 +189,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             findViewById(R.id.ansView).setVisibility(View.VISIBLE); // sets the answer view to visible
             findViewById(R.id.replay).setVisibility(View.VISIBLE); // sets replay button to visible
             findViewById(R.id.replay).bringToFront(); // brings the button to the front so it can be seen by the user
+
             TextView questionView = (TextView) findViewById(R.id.questionBox);  // defines the questionView
             questionView.setText(GlobalC.rand1 + " + " + GlobalC.rand2 + " = " + GlobalC.ans); // This changes the questionView text to reflect on the generated question and the correct answer, so the user can see the correct answer in any instance.
             questionView.setTextColor(Color.parseColor("#FF0000")); //  Sets the colour to red so the user can see it is wrong
@@ -210,8 +211,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     }
 
     public void generateQuestion() {
-        int min = 1; // used for the random function.
-        int max = 9; // used for the random function.
+        int min = 0; // used for the random function.
+        int max = 4; // used for the random function.
         GlobalC.rand1 = new Random().nextInt(max - min + 1) + min; // rand1 is provided with a random value between the max and min numbers defined above
         GlobalC.rand2 = new Random().nextInt(max - min + 1) + min; // rand2 is provided with a random value between the max and min numbers defined above
         GlobalC.ans = GlobalC.rand1 + GlobalC.rand2; // the answer is stored in GlobalC.ans based off the result of GlobalC.rand1 + GlobalC.rand2
